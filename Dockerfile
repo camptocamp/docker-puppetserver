@@ -9,6 +9,6 @@ RUN apt-get update \
   && apt-get install -y puppetserver=$PUPPETSERVER_VERSION git \
   && apt-get clean
 
-RUN gem install hiera-eyaml --no-ri --no-rdoc
+RUN puppetserver gem install hiera-eyaml --no-ri --no-rdoc
 
 ENTRYPOINT ["puppetserver", "foreground"]
