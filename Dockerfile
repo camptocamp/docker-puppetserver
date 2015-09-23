@@ -1,4 +1,4 @@
-FROM camptocamp/puppet-agent:1.2.4-2
+FROM camptocamp/puppet-agent:1.2.4-3
 
 MAINTAINER mickael.canevet@camptocamp.com
 
