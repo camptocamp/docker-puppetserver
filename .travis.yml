@@ -4,7 +4,7 @@ sudo: required
 services: docker
 cache: bundler
 script:
-  - docker build -t camptocamp/puppetserver:$TRAVIS_TAG .
+  - ./.build.sh
   - bundle exec rspec -fd
 after_success:
   - ./.publish.sh
