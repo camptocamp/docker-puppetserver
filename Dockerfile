@@ -9,7 +9,7 @@ ENV PATH="/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:$PATH"
 
 RUN apt-get update \
   && apt-get install -y puppetserver=$PUPPETSERVER_VERSION git \
-  && apt-get clean
+  && rm -rf /var/lib/apt/lists/*
 
 RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-rdoc \
   && puppetserver gem install hiera-eyaml-gpg --version $HIERA_EYAML_GPG_VERSION --no-ri --no-rdoc
