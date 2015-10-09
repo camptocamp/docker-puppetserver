@@ -11,6 +11,7 @@ RUN apt-get update \
   && apt-get install -y puppetserver=$PUPPETSERVER_VERSION git \
   && rm -rf /var/lib/apt/lists/*
 
+ADD trapperkeeper.aug /opt/puppetlabs/puppet/share/augeas/lenses/trapperkeeper.aug
 ADD puppetserver.sh /usr/local/sbin/puppetserver.sh
 
 RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-rdoc \
