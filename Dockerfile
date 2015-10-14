@@ -20,4 +20,6 @@ RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-r
 # Allow JAVA_ARGS tuning
 RUN sed -i -e 's@^JAVA_ARGS=\(.*\)$@JAVA_ARGS=\$\{JAVA_ARGS:-\1\}@' /etc/default/puppetserver
 
+VOLUME ["/etc/puppetlabs/code/environments"]
+
 ENTRYPOINT ["puppetserver.sh"]
