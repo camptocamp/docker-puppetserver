@@ -24,4 +24,41 @@ set \$max/@value '${MAX_ACTIVE_INSTANCES}'
 EOF
 fi
 
+if [ "${METRICS}" = true ]; then
+  echo "Configuring Puppetserver metrics"
+  cat << EOF > /etc/puppetlabs/puppetserver/conf.d/metrics.conf
+# metrics-related settings
+metrics: {
+    # enable or disable the metrics system
+    enabled: true
+
+    # a server id that will be used as part of the namespace for metrics produced
+    # by this server
+    server-id: ${SERVER_ID:-HOSTNAME}
+
+    # this section is used to configure reporters that will send the metrics
+    # to various destinations for external viewing
+    reporters: {
+
+        # enable or disable JMX metrics reporter
+        jmx: {
+            enabled: true
+        }
+
+        # enable or disable graphite metrics reporter
+        graphite: {
+            enabled: true
+
+            # graphite host
+            host: "graphite"
+            # graphite metrics port
+            port: 2003
+            # how often to send metrics to graphite
+            update-interval-seconds: 5
+        }
+    }
+}
+EOF
+fi
+
 puppetserver foreground
