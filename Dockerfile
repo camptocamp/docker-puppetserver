@@ -17,6 +17,8 @@ ADD puppetserver.sh /usr/local/sbin/puppetserver.sh
 RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-rdoc \
   && puppetserver gem install hiera-eyaml-gpg --version $HIERA_EYAML_GPG_VERSION --no-ri --no-rdoc
 
+RUN puppet config set strict_variables true --section master
+
 # Allow JAVA_ARGS tuning
 RUN sed -i -e 's@^JAVA_ARGS=\(.*\)$@JAVA_ARGS=\$\{JAVA_ARGS:-\1\}@' /etc/default/puppetserver
 
