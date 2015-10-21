@@ -24,4 +24,9 @@ set \$max/@value '${MAX_ACTIVE_INSTANCES}'
 EOF
 fi
 
+if [ "${STRICT_VARIABLES}" = true ]; then
+  echo "Enable strict_variables"
+  puppet config set strict_variables=true --section master
+fi
+
 puppetserver foreground
