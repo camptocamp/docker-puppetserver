@@ -3,12 +3,13 @@ FROM camptocamp/puppet-agent:1.2.6-1
 MAINTAINER mickael.canevet@camptocamp.com
 
 ENV PUPPETSERVER_VERSION 2.1.2-1puppetlabs1
+ENV PUPPETDB_VERSION 3.1.0-1puppetlabs1
 ENV RUBY_GPG_VERSION 0.3.2
 ENV HIERA_EYAML_GPG_VERSION 0.5.0
 ENV PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:$PATH
 
 RUN apt-get update \
-  && apt-get install -y puppetserver=$PUPPETSERVER_VERSION git \
+  && apt-get install -y puppetserver=$PUPPETSERVER_VERSION puppetdb-termini=$PUPPETDB_VERSION git \
   && rm -rf /var/lib/apt/lists/*
 
 ADD trapperkeeper.aug /opt/puppetlabs/puppet/share/augeas/lenses/trapperkeeper.aug
