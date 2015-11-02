@@ -3,7 +3,7 @@ FROM camptocamp/puppet-agent:1.2.6-1
 MAINTAINER mickael.canevet@camptocamp.com
 
 ENV PUPPETSERVER_VERSION 2.1.2-1puppetlabs1
-ENV PUPPETDB_VERSION 3.1.0-1puppetlabs1
+ENV PUPPETDB_VERSION 3.2.0-1puppetlabs1
 
 ENV RUBY_GPG_VERSION 0.3.2
 ENV HIERA_EYAML_GPG_VERSION 0.5.0
