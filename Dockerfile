@@ -1,4 +1,4 @@
-FROM camptocamp/puppet-agent:1.2.7-1jessie
+FROM camptocamp/puppet-agent:1.2.7-1wheezy
 
 MAINTAINER mickael.canevet@camptocamp.com
 
