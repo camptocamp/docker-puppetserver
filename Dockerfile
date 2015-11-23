@@ -2,7 +2,7 @@ FROM camptocamp/puppet-agent:1.3.0-1wheezy
 
 MAINTAINER mickael.canevet@camptocamp.com
 
-ENV PUPPETSERVER_VERSION 2.1.2-1puppetlabs1
+ENV PUPPETSERVER_VERSION 2.2.0-1puppetlabs1
 ENV PUPPETDB_VERSION 3.1.0-1puppetlabs1
 
 ENV RUBY_GPG_VERSION 0.3.2
