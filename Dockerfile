@@ -33,6 +33,27 @@ RUN curl https://raw.githubusercontent.com/jamtur01/puppet-riemann/master/lib/pu
 # Get graphite reporter
 RUN curl https://raw.githubusercontent.com/evenup/evenup-graphite_reporter/master/lib/puppet/reports/graphite.rb -o /opt/puppetlabs/puppet/lib/ruby/vendor_ruby/puppet/reports/graphite.rb
 
+# Configure Syslog appenders
+RUN echo 'defnode syslog /files/etc/puppetlabs/puppetserver/logback.xml/configuration/appender[#attribute/name="SYSLOG"]\n\
+set $syslog/#attribute/name "SYSLOG"\n\
+set $syslog/#attribute/class "ch.qos.logback.core.SyslogAppender"\n\
+set $syslog/syslogHost/#text "syslog"\n\
+set $syslog/facility/#text "local0"\n\
+set $syslog/suffixPattern/#text "${logpattern}"'\
+| augtool -Ast "Xml.lns incl /etc/puppetlabs/puppetserver/logback.xml"
+
+RUN echo 'defnode syslog /files/etc/puppetlabs/puppetserver/request-logging.xml/configuration/appender[#attribute/name="SYSLOG"]\n\
+set $syslog/#attribute/name "SYSLOG"\n\
+set $syslog/#attribute/class "ch.qos.logback.core.SyslogAppender"\n\
+set $syslog/syslogHost/#text "syslog"\n\
+set $syslog/facility/#text "local0"\n\
+set $syslog/suffixPattern/#text "${logpattern}"'\
+| augtool -Ast "Xml.lns incl /etc/puppetlabs/puppetserver/request-logging.xml"
+
+RUN echo 'defnode appref /files/etc/puppetlabs/puppetserver/request-logging.xml/configuration/appender-ref[#attribute/ref="${logappender}"]\n\
+set $appref/#attribute/ref "${logappender}"'\
+| augtool -Ast "Xml.lns incl /etc/puppetlabs/puppetserver/request-logging.xml"
+
 VOLUME ["/etc/puppetlabs/code/environments"]
 
 ENTRYPOINT ["puppetserver.sh"]
