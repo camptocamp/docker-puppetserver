@@ -15,6 +15,7 @@ ENV PUPPETDB_VERSION 3.1.0-1puppetlabs1
 ENV RUBY_GPG_VERSION 0.3.2
 ENV HIERA_EYAML_GPG_VERSION 0.5.0
 ENV RIEMANN_CLIENT_VERSION 0.2.5
+ENV JACKSON_VERSION 2.5.4
 
 ENV PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
@@ -48,6 +49,19 @@ RUN curl https://raw.githubusercontent.com/jamtur01/puppet-riemann/master/lib/pu
 
 # Get graphite reporter
 RUN curl https://raw.githubusercontent.com/evenup/evenup-graphite_reporter/master/lib/puppet/reports/graphite.rb -o /opt/puppetlabs/puppet/lib/ruby/vendor_ruby/puppet/reports/graphite.rb
+
+# Configure Log appenders
+ADD http://central.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/${JACKSON_VERSION}/jackson-annotations-${JACKSON_VERSION}.jar /opt/puppetlabs/server/apps/puppetserver/
+ADD http://central.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/${JACKSON_VERSION}/jackson-core-${JACKSON_VERSION}.jar /opt/puppetlabs/server/apps/puppetserver/
+ADD http://central.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/${JACKSON_VERSION}/jackson-databind-${JACKSON_VERSION}.jar /opt/puppetlabs/server/apps/puppetserver/
+ADD http://central.maven.org/maven2/net/logstash/logback/logstash-logback-encoder/4.5.1/logstash-logback-encoder-4.5.1.jar /opt/puppetlabs/server/apps/puppetserver/
+ADD http://central.maven.org/maven2/com/github/juise/logstash-logback-layout/1.0/logstash-logback-layout-1.0.jar /opt/puppetlabs/server/apps/puppetserver/
+
+COPY logback.xml /etc/puppetlabs/puppetserver/
+COPY request-logging.xml /etc/puppetlabs/puppetserver/
+
+RUN sed -i 's/${JAVA_ARGS} ${LOG_APPENDER}/${LOG_APPENDER} ${JAVA_ARGS}/' /opt/puppetlabs/server/apps/puppetserver/cli/apps/foreground
+RUN sed -i "s@\(puppet-server-release.jar\)@\1:\$\{INSTALL_DIR\}/logstash-logback-encoder-4.5.1.jar:\$\{INSTALL_DIR\}/logstash-logback-layout-1.0.jar:\$\{INSTALL_DIR\}/jackson-annotations-${JACKSON_VERSION}.jar:\$\{INSTALL_DIR\}/jackson-core-${JACKSON_VERSION}.jar:\$\{INSTALL_DIR\}/jackson-databind-${JACKSON_VERSION}.jar@" /opt/puppetlabs/server/apps/puppetserver/cli/apps/foreground
 
 VOLUME ["/etc/puppetlabs/code/environments"]
 
