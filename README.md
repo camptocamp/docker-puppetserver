@@ -18,4 +18,14 @@ docker run --rm -e JAVA_ARGS='-Xmx 4G' camptocamp/puppetserver
 
 #### Configure Log Appender
 
-The default log appender in `STDOUT`, you can add `-Dlogappender=LOGSTASH` to `JAVA_ARGS` so that it output in `/var/log/puppetlabs/puppetserver/puppetserver.log.json` and `/var/log/puppetlabs/puppetserver/puppetserver-access.log.json` using `net.logstash.logback.encoder`.
+##### STDOUT appender
+
+The default log appender in `STDOUT` so that you can see the output using `docker-compose logs` for example.
+
+##### FILE appender
+
+You can add `-Dlogappender=FILE` to `JAVA_ARGS` so that it outputs in `/var/log/puppetlabs/puppetserver/puppetserver.log` and `/var/log/puppetlabs/puppetserver/puppetserver-access.log`.
+
+##### LOGSTASH appender
+
+You can add `-Dlogappender=LOGSTASH` to `JAVA_ARGS` so that it outputs in `/var/log/puppetlabs/puppetserver/puppetserver.log.json` and `/var/log/puppetlabs/puppetserver/puppetserver-access.log.json` using `net.logstash.logback.encoder`.
