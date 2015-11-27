@@ -29,3 +29,30 @@ You can add `-Dlogappender=FILE` to `JAVA_ARGS` so that it outputs in `/var/log/
 ##### LOGSTASH appender
 
 You can add `-Dlogappender=LOGSTASH` to `JAVA_ARGS` so that it outputs in `/var/log/puppetlabs/puppetserver/puppetserver.log.json` and `/var/log/puppetlabs/puppetserver/puppetserver-access.log.json` using `net.logstash.logback.encoder`.
+
+### EXTERNAL_SSL_TERMINATION
+
+If you set `EXTERNAL_SSL_TERMINATION` to `true`, puppetserver will listen on `8080` in HTTP so that you can use an external SSL termination according to this doc : https://docs.puppetlabs.com/puppetserver/latest/external_ssl_termination.html.
+
+### MAX_ACTIVE_INSTANCES
+
+You can tune `max-active-instances` using the `MAX_ACTIVE_INSTANCES` environment variable.
+
+### ENABLE_PROFILER
+
+You can enable the profiler using the `ENABLE_PROFILER` environment variable.
+
+Linking auto configuration:
+---------------------------
+
+### puppetdb-termini
+
+If the container can resolve `puppetdb`, puppetdb-termini will be enabled.
+
+### riemann
+
+If the container can resolve `riemann`, the riemann reporter will be enabled (https://github.com/jamtur01/puppet-riemann).
+
+### graphite
+
+If the container can resolve `graphite`, the graphite reporter will be enabled (https://github.com/evenup/evenup-graphite_reporter).
