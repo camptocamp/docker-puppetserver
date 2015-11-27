@@ -45,10 +45,10 @@ RUN puppet config set strict_variables true --section master
 RUN sed -i -e 's@^JAVA_ARGS=\(.*\)$@JAVA_ARGS=\$\{JAVA_ARGS:-\1\}@' /etc/default/puppetserver
 
 # Get riemann reporter
-RUN curl https://raw.githubusercontent.com/jamtur01/puppet-riemann/master/lib/puppet/reports/riemann.rb -o /opt/puppetlabs/puppet/lib/ruby/vendor_ruby/puppet/reports/riemann.rb
+ADD https://raw.githubusercontent.com/jamtur01/puppet-riemann/master/lib/puppet/reports/riemann.rb /opt/puppetlabs/puppet/lib/ruby/vendor_ruby/puppet/reports/
 
 # Get graphite reporter
-RUN curl https://raw.githubusercontent.com/evenup/evenup-graphite_reporter/master/lib/puppet/reports/graphite.rb -o /opt/puppetlabs/puppet/lib/ruby/vendor_ruby/puppet/reports/graphite.rb
+ADD https://raw.githubusercontent.com/evenup/evenup-graphite_reporter/master/lib/puppet/reports/graphite.rb /opt/puppetlabs/puppet/lib/ruby/vendor_ruby/puppet/reports/
 
 # Configure Log appenders
 ADD http://central.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/${JACKSON_VERSION}/jackson-annotations-${JACKSON_VERSION}.jar /opt/puppetlabs/server/apps/puppetserver/
