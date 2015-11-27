@@ -79,4 +79,4 @@ for script in /app/start.d/*; do
   fi
 done
 
-puppetserver foreground
+puppetserver foreground $@
