@@ -2,6 +2,8 @@ FROM debian:wheezy
 
 MAINTAINER mickael.canevet@camptocamp.com
 
+EXPOSE [ '8080', '8140' ]
+
 ENV RELEASE=wheezy
 
 ENV LANGUAGE=en_US.UTF-8
