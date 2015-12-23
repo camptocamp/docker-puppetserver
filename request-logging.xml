@@ -38,12 +38,16 @@
                       "request":"http://%header{Host}%requestURI",
                       "referrer":"%header{Referer}",
                       "agent":"%header{User-agent}",
-        
+
                       "request.host":"%header{Host}",
                       "request.accept":"%header{Accept}",
                       "request.accept-encoding":"%header{Accept-Encoding}",
                       "request.connection":"%header{Connection}",
-        
+
+                      "puppet.client-verify":"%header{X-Client-Verify}",
+                      "puppet.client-dn":"%header{X-Client-DN}",
+                      "puppet.client-cert":"%header{X-Client-Cert}",
+
                       "response.content-type":"%responseHeader{Content-Type}",
                       "response.content-length":"%responseHeader{Content-Length}",
                       "response.server":"%responseHeader{Server}",
