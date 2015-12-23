@@ -2,7 +2,7 @@ FROM debian:wheezy
 
 MAINTAINER mickael.canevet@camptocamp.com
 
-EXPOSE [ '8080', '8140' ]
+EXPOSE 8080 8140
 
 ENV RELEASE=wheezy
 
