@@ -27,8 +27,10 @@ RUN apt-get update \
   && dpkg -i puppetlabs-release-pc1-${RELEASE}.deb \
   && rm -rf /var/lib/apt/lists/*
 
+RUN echo $PUPPETDB_VERSION | grep -q SNAPSHOT && curl https://nightlies.puppetlabs.com/puppetdb/$(echo ${PUPPETDB_VERSION}|sed -E 's/([^-]*)-.*SNAPSHOT(.*)puppetlabs1/\1.SNAPSHOT\2/')/repo_configs/deb/pl-puppetdb-$(echo ${PUPPETDB_VERSION}|sed -E 's/([^-]*)-.*SNAPSHOT(.*)puppetlabs1/\1.SNAPSHOT\2/')-${RELEASE}.list > /etc/apt/sources.list.d/pl-puppetdb-$(echo ${PUPPETDB_VERSION}|sed -E 's/([^-]*)-.*SNAPSHOT(.*)puppetlabs1/\1.SNAPSHOT\2/')-${RELEASE}.list || true
+
 RUN apt-get update \
-  && apt-get install -y git \
+  && apt-get install -y --force-yes git \
     puppet-agent=$PUPPET_AGENT_VERSION \
     puppetserver=$PUPPETSERVER_VERSION \
     puppetdb-termini=$PUPPETDB_VERSION \
