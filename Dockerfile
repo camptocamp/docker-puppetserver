@@ -62,8 +62,11 @@ ADD http://central.maven.org/maven2/net/logstash/logback/logstash-logback-encode
 
 RUN chmod +r /opt/puppetlabs/server/apps/puppetserver/*.jar
 
+# Configure logging
 COPY logback.xml /etc/puppetlabs/puppetserver/
+COPY logback.appender.xml /etc/puppetlabs/puppetserver/
 COPY request-logging.xml /etc/puppetlabs/puppetserver/
+COPY request-logging.appender.xml /etc/puppetlabs/puppetserver/
 
 RUN sed -i "s@\(puppet-server-release.jar\)@\1:\$\{INSTALL_DIR\}/logstash-logback-encoder-4.5.1.jar:\$\{INSTALL_DIR\}/jackson-annotations-${JACKSON_VERSION}.jar:\$\{INSTALL_DIR\}/jackson-core-${JACKSON_VERSION}.jar:\$\{INSTALL_DIR\}/jackson-databind-${JACKSON_VERSION}.jar@" /opt/puppetlabs/server/apps/puppetserver/cli/apps/foreground
 

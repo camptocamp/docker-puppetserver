@@ -24,6 +24,14 @@ set \$max/@value '${MAX_ACTIVE_INSTANCES}'
 EOF
 fi
 
+if [ -n "${LOGBACK_APPENDER}" ]; then
+  echo "${LOGBACK_APPENDER}" > /etc/puppetlabs/puppetserver/logback.appender.xml
+fi
+
+if [ -n "${REQUEST_LOGGING_APPENDER}" ]; then
+  echo "${REQUEST_LOGGING_APPENDER}" > /etc/puppetlabs/puppetserver/request-logging.appender.xml
+fi
+
 if [ "${ENABLE_PROFILER}" = true ]; then
   echo "Enable profiler"
   cat << EOF | augtool -Ast "Trapperkeeper.lns incl /etc/puppetlabs/puppetserver/conf.d/*.conf"
