@@ -16,20 +16,6 @@ You can set `JAVA_ARGS` using a Docker environment variables:
 docker run --rm -e JAVA_ARGS='-Xmx 4G' camptocamp/puppetserver
 ```
 
-#### Configure Log Appender
-
-##### STDOUT appender
-
-The default log appender in `STDOUT` so that you can see the output using `docker-compose logs` for example.
-
-##### FILE appender
-
-You can add `-Dlogappender=FILE` to `JAVA_ARGS` so that it outputs in `/var/log/puppetlabs/puppetserver/puppetserver.log` and `/var/log/puppetlabs/puppetserver/puppetserver-access.log`.
-
-##### LOGSTASH appender
-
-You can add `-Dlogappender=LOGSTASH` to `JAVA_ARGS` so that it outputs in `/var/log/puppetlabs/puppetserver/puppetserver.log.json` and `/var/log/puppetlabs/puppetserver/puppetserver-access.log.json` using `net.logstash.logback.encoder`.
-
 ### EXTERNAL_SSL_TERMINATION
 
 If you set `EXTERNAL_SSL_TERMINATION` to `true`, puppetserver will listen on `8080` in HTTP so that you can use an external SSL termination according to this doc : https://docs.puppetlabs.com/puppetserver/latest/external_ssl_termination.html.
