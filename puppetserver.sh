@@ -72,4 +72,7 @@ fi
 echo "reports=${reports}"
 test -n "${reports}" && puppet config set reports $reports --section master
 
+# Fix volumes ownership
+chown puppet:puppet /etc/puppetlabs/puppet/ssl
+
 exec puppetserver foreground $@
