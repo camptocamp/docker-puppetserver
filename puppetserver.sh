@@ -72,11 +72,4 @@ fi
 echo "reports=${reports}"
 test -n "${reports}" && puppet config set reports $reports --section master
 
-# Hooks
-for script in /app/start.d/*; do
-  if [ -f $script -a -x $script ]; then
-    $script
-  fi
-done
-
 exec puppetserver foreground $@
