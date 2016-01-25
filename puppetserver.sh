@@ -36,6 +36,9 @@ fi
 reports=''
 
 if getent hosts puppetdb > /dev/null 2>&1 ; then
+  echo "Generating puppetdb certificate"
+  puppet cert generate puppetdb
+
   echo "Configure puppetdb-termini"
   puppet config set storeconfigs true --section master
   puppet config set storeconfigs_backend puppetdb --section master
