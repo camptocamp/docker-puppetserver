@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Wait 1 second to give time to Docker to update /etc/resolv.conf
+sleep 1
+
 if [ "${EXTERNAL_SSL_TERMINATION}" = true ]; then
   echo "Configuring Puppet server for External SSL Termination"
   cat << 'EOF' | augtool -Ast "Trapperkeeper.lns incl /etc/puppetlabs/puppetserver/conf.d/*.conf"
