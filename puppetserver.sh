@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Wait 1 second to give time to Docker to update /etc/resolv.conf
-sleep 1
+# Wait 3 second to give time to Docker to update /etc/resolv.conf
+sleep 3
 
 if [ "${EXTERNAL_SSL_TERMINATION}" = true ]; then
   echo "Configuring Puppet server for External SSL Termination"
