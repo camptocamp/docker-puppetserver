@@ -38,6 +38,11 @@ fi
 
 reports=''
 
+if test -n "${CERTNAME}"; then
+  echo "Configure certname"
+  puppet config set certname $CERTNAME --section agent
+fi
+
 if getent hosts puppetdb > /dev/null 2>&1 ; then
   echo "Generating puppetdb certificate"
   puppet cert generate puppetdb
