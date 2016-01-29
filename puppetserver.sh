@@ -43,6 +43,11 @@ if test -n "${CERTNAME}"; then
   puppet config set certname $CERTNAME --section main
 fi
 
+if test -n "${DNS_ALT_NAMES}"; then
+  echo "Configure dns_alt_names"
+  puppet config set dns_alt_names $DNS_ALT_NAMES --section master
+fi
+
 if getent hosts puppetdb > /dev/null 2>&1 ; then
   echo "Generating puppetdb certificate"
   puppet cert generate puppetdb
