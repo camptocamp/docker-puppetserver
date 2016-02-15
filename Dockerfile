@@ -68,6 +68,10 @@ RUN sed -i "s@\(puppet-server-release.jar\)@\1:\$\{INSTALL_DIR\}/logstash-logbac
 
 VOLUME ["/etc/puppetlabs/code/environments","/etc/puppetlabs/puppet/ssl"]
 
+# Configure cert autosign
+COPY check_csr.rb /
+RUN puppet config set autosign /check_csr.rb --section master
+
 # Configure entrypoint
 COPY /docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/
