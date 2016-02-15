@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if getent hosts rancher-metadata > /dev/null; then
+if getent hosts rancher-metadata > /dev/null && test -n "${CA}" && ! ${CA} ; then
   # Generate csr_attributes.yaml
   cat << EOF > /etc/puppetlabs/puppet/csr_attributes.yaml
 ---
