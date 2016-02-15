@@ -36,8 +36,7 @@ RUN apt-get update \
     puppetdb-termini=$PUPPETDB_VERSION \
   && rm -rf /var/lib/apt/lists/*
 
-ADD trapperkeeper.aug /opt/puppetlabs/puppet/share/augeas/lenses/trapperkeeper.aug
-ADD puppetserver.sh /usr/local/sbin/puppetserver.sh
+COPY trapperkeeper.aug /opt/puppetlabs/puppet/share/augeas/lenses/trapperkeeper.aug
 
 RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-rdoc \
   && puppetserver gem install hiera-eyaml-gpg --version $HIERA_EYAML_GPG_VERSION --no-ri --no-rdoc \
@@ -69,4 +68,8 @@ RUN sed -i "s@\(puppet-server-release.jar\)@\1:\$\{INSTALL_DIR\}/logstash-logbac
 
 VOLUME ["/etc/puppetlabs/code/environments","/etc/puppetlabs/puppet/ssl"]
 
-ENTRYPOINT ["puppetserver.sh"]
+# Configure entrypoint
+COPY /docker-entrypoint.sh /
+COPY /docker-entrypoint.d/* /docker-entrypoint.d/
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["puppetserver", "foreground"]
