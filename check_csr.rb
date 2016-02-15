@@ -10,7 +10,7 @@ challenge = csr.attributes.select { |a| a.oid == "challengePassword" }.first.val
 
 exit 1 if challenge.nil?
 
-services = JSON.parse(open('http://rancher-metadata/latest/services', 'Accept' => 'application/json').read)
+services = JSON.parse(open('http://rancher-metadata/latest/self/stack/services', 'Accept' => 'application/json').read)
 services.each do |s|
   exit 0 if challenge == "#{s['name']}:#{s['uuid']}"
 end
