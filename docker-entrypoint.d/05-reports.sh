@@ -29,3 +29,5 @@ fi
 
 echo "reports=${reports}"
 test -n "${reports}" && puppet config set reports $reports --section master
+
+exit 0
