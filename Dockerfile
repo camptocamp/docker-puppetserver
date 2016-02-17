@@ -72,6 +72,9 @@ VOLUME ["/etc/puppetlabs/code/environments","/etc/puppetlabs/puppet/ssl"]
 COPY check_csr.rb /
 RUN puppet config set autosign /check_csr.rb --section master
 
+# Add config_version.sh
+COPY config_version.sh /usr/local/bin/config_version.sh
+
 # Configure entrypoint
 COPY /docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/
