@@ -10,11 +10,11 @@ if ENV['CA_KEY'] && ENV['CA_CRT']
 
   ca_key = File.join(ca_dir,'ca_key.pem')
   File.open(ca_key, 'w') { |f| f.puts ENV['CA_KEY'] }
-  FileUtils.chmod('0640', ca_key)
+  FileUtils.chmod(0640, ca_key)
 
   ca_crt = File.join(ca_dir, 'ca_crt.pem')
   File.open(ca_crt, 'w') { |f| f.puts ENV['CA_CRT'] }
-  FileUtils.chmod('0644', ca_crt)
+  FileUtils.chmod(0644, ca_crt)
 
   inventory = File.join(ca_dir, 'inventory.txt')
   crt_str = File.read(ca_crt)
