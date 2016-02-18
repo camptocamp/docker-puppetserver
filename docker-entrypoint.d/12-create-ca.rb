@@ -35,5 +35,5 @@ if ENV['CA_KEY'] && ENV['CA_CRT']
   %x{puppet cert generate regen-foobar}
   %x{puppet cert clean regen-foobar}
 
-  FileUtils.chown('puppet', 'puppet', ca_dir)
+  FileUtils.chown_R('puppet', 'puppet', ca_dir)
 end
