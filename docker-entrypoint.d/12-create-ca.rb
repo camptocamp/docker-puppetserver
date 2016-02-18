@@ -29,7 +29,7 @@ if ENV['CA_KEY'] && ENV['CA_CRT']
   end
 
   serial = File.join(ca_dir, 'serial')
-  File.open(serial, 'w') { |f| f.puts('0x0002') }
+  File.open(serial, 'w') { |f| f.puts('002') }
 
   # Force regenerate CRL
   %x{puppet cert generate regen-foobar}
