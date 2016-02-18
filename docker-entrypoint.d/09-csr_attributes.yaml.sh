@@ -9,9 +9,13 @@ custom_attributes:
 EOF
 
   # Get certificate
-  if getent hosts puppetca > /dev/null; then
-    puppet agent -t --noop --server puppetca
-  else
-    puppet agent -t --noop
-  fi
+  rc=1
+  while test $rc -ne 0; do
+    if getent hosts puppetca > /dev/null; then
+      puppet agent -t --noop --server puppetca
+    else
+      puppet agent -t --noop
+    fi
+    rc=$?
+  done
 fi
