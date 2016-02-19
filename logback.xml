@@ -1,7 +1,10 @@
 <configuration scan="true">
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%d %-5p [%c{2}] %m%n</pattern>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <fieldNames>
+        <timestamp>timegenerated</timestamp>
+        <message>logmsg</message>
+      </fieldNames>
     </encoder>
   </appender>
   <root level="info">

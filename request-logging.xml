@@ -1,7 +1,10 @@
 <configuration scan="true">
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%h %l %u %user %date "%r" %s %b %h %a %localPort %D</pattern>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <fieldNames>
+        <timestamp>timegenerated</timestamp>
+        <message>logmsg</message>
+      </fieldNames>
     </encoder>
   </appender>
   <appender-ref ref="STDOUT"/>
