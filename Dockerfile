@@ -42,7 +42,8 @@ RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-r
   && puppetserver gem install hiera-eyaml-gpg --version $HIERA_EYAML_GPG_VERSION --no-ri --no-rdoc \
   && puppetserver gem install riemann-client --version $RIEMANN_CLIENT_VERSION --no-ri --no-rdoc
 
-RUN puppet config set strict_variables true --section master
+RUN puppet config set strict_variables true --section master \
+  && puppet config set hiera_config /etc/puppetlabs/code/environments/production/hiera.yaml --section master
 
 # Allow JAVA_ARGS tuning
 RUN sed -i -e 's@^JAVA_ARGS=\(.*\)$@JAVA_ARGS=\$\{JAVA_ARGS:-\1\}@' /etc/default/puppetserver
