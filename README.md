@@ -16,10 +16,6 @@ You can set `JAVA_ARGS` using a Docker environment variables:
 docker run --rm -e JAVA_ARGS='-Xmx 4G' camptocamp/puppetserver
 ```
 
-### EXTERNAL_SSL_TERMINATION
-
-If you set `EXTERNAL_SSL_TERMINATION` to `true`, puppetserver will listen on `8080` in HTTP so that you can use an external SSL termination according to this doc : https://docs.puppetlabs.com/puppetserver/latest/external_ssl_termination.html.
-
 ### MAX_ACTIVE_INSTANCES
 
 You can tune `max-active-instances` using the `MAX_ACTIVE_INSTANCES` environment variable.
