@@ -4,21 +4,22 @@ MAINTAINER mickael.canevet@camptocamp.com
 
 EXPOSE 8080 8140
 
-ENV RELEASE=jessie
+ENV RELEASE jessie
 
-ENV LANGUAGE=en_US.UTF-8
-ENV LC_ALL=en_US.UTF-8
-ENV LANG=en_US.UTF-8
+ENV \
+  LANGUAGE=en_US.UTF-8 \
+  LC_ALL=en_US.UTF-8 \
+  LANG=en_US.UTF-8 \
 
-ENV PUPPET_AGENT_VERSION 1.5.0-1${RELEASE}
-ENV PUPPETSERVER_VERSION 2.4.0-1puppetlabs1
-ENV PUPPETDB_VERSION 4.1.0-1puppetlabs1
+  PUPPET_AGENT_VERSION=1.5.0-1${RELEASE} \
+  PUPPETSERVER_VERSION=2.4.0-1puppetlabs1 \
+  PUPPETDB_VERSION=4.1.0-1puppetlabs1 \
 
-ENV RUBY_GPG_VERSION 0.3.2
-ENV HIERA_EYAML_GPG_VERSION 0.5.0
-ENV RIEMANN_CLIENT_VERSION 0.2.5
+  RUBY_GPG_VERSION=0.3.2 \
+  HIERA_EYAML_GPG_VERSION=0.5.0 \
+  RIEMANN_CLIENT_VERSION=0.2.5 \
 
-ENV PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
+  PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 RUN apt-get update \
   && apt-get install -y curl locales-all \
