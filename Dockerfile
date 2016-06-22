@@ -44,8 +44,7 @@ RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-r
 
 RUN puppet config set strict_variables true --section master \
   && puppet config set hiera_config /etc/puppetlabs/code/environments/production/hiera.yaml --section master \
-  && puppet config set certificate_revocation false --section main \
-  && touch /etc/puppetlabs/puppet/ssl/crl.pem
+  && puppet config set certificate_revocation false --section main
 
 # Allow JAVA_ARGS tuning
 RUN sed -i -e 's@^JAVA_ARGS=\(.*\)$@JAVA_ARGS=\$\{JAVA_ARGS:-\1\}@' /etc/default/puppetserver
