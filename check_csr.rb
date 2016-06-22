@@ -16,7 +16,8 @@ def sign_rancher(csr, certname, value)
 end
 
 def sign_psk(csr, certname, value)
-  if value == ENV["AUTOSIGN_PSK"]
+  autosign_psk = File.open('/etc/puppetlabs/puppet/autosign_psk', 'r').read.chomp
+  if value == autosign_psk
     sign_csr(csr_certname)
   else
     exit 1
