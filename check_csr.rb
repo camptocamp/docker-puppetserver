@@ -15,17 +15,26 @@ challenge_method, challenge_value = challenge.match(/(?:([^;]+);)?(.+)/).capture
 
 if challenge_method == 'rancher' or challenge_method.nil?
   sign_rancher(csr, ARGV[0], challenge_value)
+elsif challenge_method == 'psk'
+  sign_psk(csr, ARGV[0], challenge_value)
 end
-
-exit 1
-
 
 def sign_rancher(csr, certname, value)
   services = JSON.parse(open('http://rancher-metadata/latest/services', 'Accept' => 'application/json').read)
   services.each do |s|
-    if values == "#{s['name']}:#{s['uuid']}"
+    if value == "#{s['name']}:#{s['uuid']}"
       sign_csr(csr, certname)
+    else
+      exit 1
     end
+  end
+end
+
+def sign_psk(csr, certname, value)
+  if value == ENV["AUTOSIGN_PSK"]
+    sign_csr(csr_certname)
+  else
+    exit 1
   end
 end
 
