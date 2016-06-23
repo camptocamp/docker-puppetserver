@@ -18,7 +18,7 @@ end
 def sign_psk(csr, certname, value)
   autosign_psk = File.open('/etc/puppetlabs/puppet/autosign_psk', 'r').read.chomp
   if value == autosign_psk
-    sign_csr(csr_certname)
+    sign_csr(csr, certname)
   else
     exit 1
   end
