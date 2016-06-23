@@ -9,10 +9,9 @@ def sign_rancher(csr, certname, value)
   services.each do |s|
     if value == "#{s['name']}:#{s['uuid']}"
       sign_csr(csr, certname)
-    else
-      exit 1
     end
   end
+  exit 1
 end
 
 def sign_psk(csr, certname, value)
@@ -46,3 +45,5 @@ if challenge_method == 'rancher' or challenge_method.nil?
 elsif challenge_method == 'psk'
   sign_psk(csr, ARGV[0], challenge_value)
 end
+
+exit 1
