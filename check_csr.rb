@@ -38,10 +38,10 @@ challenge = csr.attributes.select { |a| a.oid == "challengePassword" }.first.val
 
 exit 1 if challenge.nil?
 
-challenge_method, challenge_value = challenge.match(/(?:([^;]+);)?(.+)/).captures()
+challenge_method, challenge_value = challenge.match(/(?:([^:]+):)?(.+)/).captures()
 
-if challenge_method == 'rancher' or challenge_method.nil?
-  sign_rancher(csr, ARGV[0], challenge_value)
+if challenge_method == 'puppet' or challenge_method.nil?
+  sign_rancher(csr, ARGV[0], challenge)
 elsif challenge_method == 'psk'
   sign_psk(csr, ARGV[0], challenge_value)
 end
