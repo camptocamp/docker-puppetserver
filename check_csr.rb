@@ -19,7 +19,7 @@ def sign_psk(csr, certname, value)
   if value == autosign_psk
     sign_csr(csr, certname)
   else
-    exit 1
+    exit 2
   end
 end
 
@@ -36,7 +36,7 @@ csr = OpenSSL::X509::Request.new(request)
 
 challenge = csr.attributes.select { |a| a.oid == "challengePassword" }.first.value.value.first.value
 
-exit 1 if challenge.nil?
+exit 3 if challenge.nil?
 
 challenge_method, challenge_value = challenge.match(/(?:([^;]+);)?(.+)/).captures()
 
@@ -46,4 +46,4 @@ elsif challenge_method == 'psk'
   sign_psk(csr, ARGV[0], challenge_value)
 end
 
-exit 1
+exit 4
