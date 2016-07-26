@@ -13,7 +13,7 @@ Available environment variables:
 You can set `JAVA_ARGS` using a Docker environment variables:
 
 ```shell
-docker run --rm -e JAVA_ARGS='-Xmx 4G' camptocamp/puppetserver
+docker run --rm -e JAVA_ARGS='-Xmx4G' camptocamp/puppetserver
 ```
 
 ### MAX_ACTIVE_INSTANCES
