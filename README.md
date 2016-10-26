@@ -30,11 +30,6 @@ Linking auto configuration:
 ### puppetdb-termini
 
 If the container can resolve `puppetdb`, puppetdb-termini will be enabled.
-
-### riemann
-
-If the container can resolve `riemann`, the riemann reporter will be enabled (https://github.com/jamtur01/puppet-riemann).
-
 ### graphite
 
 If the container can resolve `graphite`, the graphite reporter will be enabled (https://github.com/evenup/evenup-graphite_reporter).
