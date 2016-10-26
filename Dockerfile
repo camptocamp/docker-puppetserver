@@ -52,9 +52,6 @@ RUN puppet config set strict_variables true --section master \
 # Allow JAVA_ARGS tuning
 RUN sed -i -e 's@^JAVA_ARGS=\(.*\)$@JAVA_ARGS=\$\{JAVA_ARGS:-\1\}@' /etc/default/puppetserver
 
-# Get graphite reporter
-ADD https://raw.githubusercontent.com/evenup/evenup-graphite_reporter/master/lib/puppet/reports/graphite.rb /opt/puppetlabs/puppet/lib/ruby/vendor_ruby/puppet/reports/
-
 VOLUME ["/etc/puppetlabs/code/environments","/etc/puppetlabs/puppet/ssl"]
 
 # Configure cert autosign
