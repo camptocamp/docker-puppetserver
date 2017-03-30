@@ -61,5 +61,5 @@ RUN puppet config set autosign /check_csr.rb --section master
 # Configure entrypoint
 COPY /docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["puppetserver", "foreground"]
+ENTRYPOINT ["/docker-entrypoint.sh", "puppetserver"]
+CMD ["foreground"]
