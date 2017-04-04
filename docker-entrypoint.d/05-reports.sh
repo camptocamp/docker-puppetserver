@@ -2,7 +2,7 @@
 
 reports=''
 
-if test -n "${CA}" && ! $CA && getent hosts puppetdb > /dev/null 2>&1 ; then
+if getent hosts puppetdb > /dev/null 2>&1 ; then
   echo "Configure report to puppetdb"
   test -n "${reports}" && reports="${reports},puppetdb" || reports="puppetdb"
 fi
