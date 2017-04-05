@@ -54,7 +54,7 @@ RUN puppet config set strict_variables true --section master \
 # Allow JAVA_ARGS tuning
 RUN sed -i -e 's@^JAVA_ARGS=\(.*\)$@JAVA_ARGS=\$\{JAVA_ARGS:-\1\}@' /etc/default/puppetserver
 
-VOLUME ["/etc/puppetlabs/code/environments","/etc/puppetlabs/puppet/ssl"]
+VOLUME ["/etc/puppetlabs/code/environments"]
 
 # Configure cert autosign
 COPY check_csr.rb /
