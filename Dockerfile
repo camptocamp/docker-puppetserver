@@ -1,7 +1,5 @@
 FROM debian:jessie
 
-MAINTAINER mickael.canevet@camptocamp.com
-
 EXPOSE 8080 8140
 
 ENV RELEASE jessie
