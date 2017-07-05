@@ -15,4 +15,14 @@ set \$sslcacert/@value '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
 defnode sslcrlpath \$webserver/@simple[.='ssl-crl-path'] ssl-crl-path
 set \$sslcrlpath/@value '/etc/puppetlabs/puppet/ssl/crl.pem'
 EOF
+
+  if test -n "${CA_WHITELIST}"; then
+    cat << EOF > /etc/puppetlabs/puppetserver/conf.d/ca.conf
+certificate-authority: {
+   certificate-status: {
+       authorization-required: true
+       client-whitelist: [${CA_WHITELIST}]
+   }
+}
+EOF
 fi
