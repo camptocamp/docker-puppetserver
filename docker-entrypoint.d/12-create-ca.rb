@@ -4,10 +4,10 @@ require 'fileutils'
 require 'openssl'
 
 if ENV['CA_KEY'] && ENV['CA_CRT']
+  ca_dir = '/etc/puppetlabs/puppet/ssl/ca'
   inventory = File.join(ca_dir, 'inventory.txt')
 
   unless File.file?(inventory)
-      ca_dir = '/etc/puppetlabs/puppet/ssl/ca'
       FileUtils.mkdir_p(ca_dir)
 
       ca_key = File.join(ca_dir,'ca_key.pem')
