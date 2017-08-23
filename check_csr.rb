@@ -3,6 +3,7 @@
 require 'json'
 require 'open-uri'
 require 'openssl'
+require 'puppet'
 
 def sign_rancher(csr, certname, value)
   services = JSON.parse(open('http://rancher-metadata/latest/services', 'Accept' => 'application/json').read)
@@ -14,9 +15,30 @@ def sign_rancher(csr, certname, value)
   exit 1
 end
 
+def autosign_psk
+  File.open('autosign_psk', 'r').read.chomp
+end
+
 def sign_psk(csr, certname, value)
-  autosign_psk = File.open('/etc/puppetlabs/puppet/autosign_psk', 'r').read.chomp
   if value == autosign_psk
+    sign_csr(csr, certname)
+  else
+    exit 2
+  end
+end
+
+def get_ext(csr, name)
+  Puppet::SSL::Oids.register_puppet_oids
+  exts = csr.attributes.select{ |a| a.oid == "extReq" }[0].value.value[0].value
+  val = exts.select { |e| e.value[0].short_name == name }[0].value[1].value
+  OpenSSL::ASN1.decode(val).value
+end
+
+def sign_hashed(csr, certname, value)
+  pp_role = get_ext(csr, 'pp_role')
+  pp_environment = get_ext(csr, 'pp_environment')
+  hash = Digest::SHA256.base64digest("#{autosign_psk}/#{certname}/#{pp_role}/#{pp_environment}")
+  if value == hash
     sign_csr(csr, certname)
   else
     exit 2
@@ -51,6 +73,8 @@ if challenge_method == 'rancher' or challenge_method.nil?
 # The "psk" method is used by Terraform
 elsif challenge_method == 'psk'
   sign_psk(csr, ARGV[0], challenge_value)
+elsif challenge_method == 'hashed'
+  sign_hashed(csr, ARGV[0], challenge_value)
 end
 # In the future, add more methods (using e.g. AWS and OpenStack metadata)
 
