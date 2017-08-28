@@ -43,6 +43,8 @@ RUN apt-get update \
 
 COPY trapperkeeper.aug /opt/puppetlabs/puppet/share/augeas/lenses/trapperkeeper.aug
 
+COPY auth.conf /etc/puppetlabs/puppetserver/conf.d/auth.conf
+
 RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-rdoc \
   && puppetserver gem install hiera-eyaml-gpg --version $HIERA_EYAML_GPG_VERSION --no-ri --no-rdoc
 
