@@ -1,17 +1,17 @@
-FROM debian:jessie
+FROM ubuntu:xenial
 
 EXPOSE 8080 8140
 
-ENV RELEASE jessie
+ENV RELEASE xenial
 
 ENV \
   LANGUAGE=en_US.UTF-8 \
   LC_ALL=en_US.UTF-8 \
   LANG=en_US.UTF-8 \
 
-  PUPPET_AGENT_VERSION=1.10.6-1${RELEASE} \
-  PUPPETSERVER_VERSION=2.7.2-1puppetlabs1 \
-  PUPPETDB_VERSION=4.4.0-1puppetlabs1 \
+  PUPPET_AGENT_VERSION=5.1.0-1${RELEASE} \
+  PUPPETSERVER_VERSION=5.0.0-1puppetlabs1 \
+  PUPPETDB_VERSION=5.0.1-1puppetlabs1 \
 
   RUBY_GPG_VERSION=0.3.2 \
   HIERA_EYAML_GPG_VERSION=0.5.0 \
@@ -22,8 +22,9 @@ ENV \
 
 RUN apt-get update \
   && apt-get install -y curl locales-all \
-  && curl -O http://apt.puppetlabs.com/puppetlabs-release-pc1-${RELEASE}.deb \
-  && dpkg -i puppetlabs-release-pc1-${RELEASE}.deb \
+  && curl -O http://apt.puppetlabs.com/puppet5-release-${RELEASE}.deb \
+  && dpkg -i puppet5-release-${RELEASE}.deb \
+  && rm puppet5-release-${RELEASE}.deb \
   && rm -rf /var/lib/apt/lists/*
 
 RUN echo $PUPPETDB_VERSION | \
