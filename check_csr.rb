@@ -49,8 +49,8 @@ def sign_csr(csr, certname)
   if ! csr.attributes.select { |a| a.oid == "ExtReq" }.nil?
     # https://tickets.puppetlabs.com/browse/SERVER-1005
     `puppet cert --allow-dns-alt-names --ssldir /etc/puppetlabs/puppet/ssl sign #{certname}`
-    exit 0
   end
+  exit 0
 end
 
 request = STDIN.read
