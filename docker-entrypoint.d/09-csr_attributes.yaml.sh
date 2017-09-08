@@ -18,7 +18,7 @@ EOF
     fi
     rc=$?
   done
-elif test -n "${AUTOSIGN_PSK}"; then
+elif test -n "${AUTOSIGN_PSK}" && test -n "${CA}" && ! ${CA}; then
   # Generate csr_attributes.yaml
   cat << EOF > /etc/puppetlabs/puppet/csr_attributes.yaml
 ---
