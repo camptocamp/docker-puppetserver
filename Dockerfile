@@ -61,6 +61,8 @@ VOLUME ["/etc/puppetlabs/code/environments"]
 COPY check_csr.rb /
 RUN puppet config set autosign /check_csr.rb --section master
 
+COPY puppetdb.conf /etc/puppetlabs/puppet/
+
 # Configure entrypoint
 COPY /docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/
