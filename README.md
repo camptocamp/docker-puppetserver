@@ -20,10 +20,6 @@ docker run --rm -e JAVA_ARGS='-Xmx4G' camptocamp/puppetserver
 
 You can tune `max-active-instances` using the `MAX_ACTIVE_INSTANCES` environment variable.
 
-### ENABLE_PROFILER
-
-You can enable the profiler using the `ENABLE_PROFILER` environment variable.
-
 Linking auto configuration:
 ---------------------------
 
