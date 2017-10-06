@@ -16,8 +16,6 @@ ENV \
   RUBY_GPG_VERSION=0.3.2 \
   HIERA_EYAML_GPG_VERSION=0.5.0 \
 
-  CA_ONLY=false \
-
   PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 RUN apt-get update \
