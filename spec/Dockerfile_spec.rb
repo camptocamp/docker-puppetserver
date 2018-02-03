@@ -26,6 +26,12 @@ describe "Dockerfile" do
   describe command('/opt/puppetlabs/bin/puppetserver gem list') do
     its(:exit_status) { is_expected.to eq 0 }
     its(:stdout) { is_expected.to match(/\bruby_gpg\b/) }
+    its(:stdout) { is_expected.to match(/\bhiera-eyaml-gpg\b/) }
+  end
+
+  describe command('/opt/puppetlabs/bin/puppet master --configprint strict_variables') do
+	its(:exit_status) { is_expected.to eq 0 }
+	its(:stdout) { is_expected.to eq("true\n") }
   end
 
   describe file('/check_csr.rb') do
