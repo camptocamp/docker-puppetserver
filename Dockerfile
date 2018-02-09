@@ -10,7 +10,7 @@ ENV \
   LANG=en_US.UTF-8 \
   PUPPET_AGENT_VERSION=5.3.4-1${RELEASE} \
   PUPPETSERVER_VERSION=5.1.5-1xenial \
-  PUPPETDB_VERSION=5.1.1-1puppetlabs1 \
+  PUPPETDB_VERSION=5.1.3-1xenial \
   RUBY_GPG_VERSION=0.3.2 \
   HIERA_EYAML_GPG_VERSION=0.5.0 \
   PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
