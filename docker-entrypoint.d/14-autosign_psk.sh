@@ -1,5 +1,4 @@
 #!/bin/sh
 
-echo "${AUTOSIGN_PSK}" > /etc/puppetlabs/puppet/autosign_psk
-chown root:puppet /etc/puppetlabs/puppet/autosign_psk
-chmod 0660 /etc/puppetlabs/puppet/autosign_psk
+echo "${AUTOSIGN_PSK}" > /opt/puppetlabs/server/data/puppetserver/autosign_psk
+chmod 0660 /opt/puppetlabs/server/data/puppetserver/autosign_psk

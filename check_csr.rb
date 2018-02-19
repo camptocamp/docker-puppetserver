@@ -16,7 +16,7 @@ def sign_rancher(csr, certname, value)
 end
 
 def autosign_psk
-  File.open('/etc/puppetlabs/puppet/autosign_psk', 'r').read.chomp
+  File.open('/opt/puppetlabs/server/data/puppetserver/autosign_psk', 'r').read.chomp
 end
 
 def sign_psk(csr, certname, value)
