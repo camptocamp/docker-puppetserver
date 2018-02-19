@@ -8,11 +8,9 @@ ENV \
   LANGUAGE=en_US.UTF-8 \
   LC_ALL=en_US.UTF-8 \
   LANG=en_US.UTF-8 \
-  PUPPET_AGENT_VERSION=5.3.4-1${RELEASE} \
-  PUPPETSERVER_VERSION=5.1.5-1xenial \
-  PUPPETDB_VERSION=5.1.3-1xenial \
-  RUBY_GPG_VERSION=0.3.2 \
-  HIERA_EYAML_GPG_VERSION=0.5.0 \
+  PUPPET_AGENT_VERSION=5.4.0-1${RELEASE} \
+  PUPPETSERVER_VERSION=5.2.0-1${RELEASE} \
+  PUPPETDB_VERSION=5.2.0-1${RELEASE} \
   PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 RUN apt-get update \
@@ -40,9 +38,6 @@ RUN apt-get update \
 COPY trapperkeeper.aug /opt/puppetlabs/puppet/share/augeas/lenses/trapperkeeper.aug
 
 COPY auth.conf /etc/puppetlabs/puppetserver/conf.d/auth.conf
-
-RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-rdoc \
-  && puppetserver gem install hiera-eyaml-gpg --version $HIERA_EYAML_GPG_VERSION --no-ri --no-rdoc
 
 RUN puppet config set strict_variables true --section master \
   && puppet config set hiera_config /etc/puppetlabs/code/environments/production/hiera.yaml --section master
