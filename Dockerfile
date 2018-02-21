@@ -5,7 +5,6 @@ EXPOSE 8140
 ENV RELEASE xenial
 
 ENV \
-  JAVA_ARGS="-Xms2g -Xmx2g -Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger" \
   LANGUAGE=en_US.UTF-8 \
   LC_ALL=en_US.UTF-8 \
   LANG=en_US.UTF-8 \
@@ -60,16 +59,8 @@ RUN puppet config set autosign /check_csr.rb --section master
 
 COPY puppetdb.conf /etc/puppetlabs/puppet/
 
-# Allow running as arbitrary user
-RUN \
-  chgrp 0 -R /etc/puppetlabs/puppet/ssl && chmod 0771 /etc/puppetlabs/puppet/ssl && \
-  chgrp 0 -R /etc/puppetlabs/puppetserver && \
-  chgrp 0 -R /opt/puppetlabs/server/data && \
-  chgrp 0 -R /var/log/puppetlabs/puppetserver && chmod 0750 /var/log/puppetlabs/puppetserver && \
-  touch /var/log/puppetlabs/puppetserver/masterhttp.log && chgrp 0 /var/log/puppetlabs/puppetserver/masterhttp.log && chmod 0660 /var/log/puppetlabs/puppetserver/masterhttp.log && \
-  mkdir -p /.puppetlabs/etc/puppet && chgrp 0 -R /.puppetlabs && chmod g=u -R /.puppetlabs
-
 # Configure entrypoint
 COPY /docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh", "puppetserver"]
+CMD ["foreground"]
