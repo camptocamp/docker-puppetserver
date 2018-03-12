@@ -1,8 +1,8 @@
-FROM debian:jessie
+FROM ubuntu:xenial
 
 EXPOSE 8140
 
-ENV RELEASE jessie
+ENV RELEASE xenial
 
 ENV \
   LANGUAGE=en_US.UTF-8 \
