@@ -28,6 +28,7 @@ RUN apt-get update \
     puppet-agent=$PUPPET_AGENT_VERSION \
     puppetserver=$PUPPETSERVER_VERSION \
     puppetdb-termini=$PUPPETDB_VERSION \
+	libreadline7 \
   && rm -rf /var/lib/apt/lists/*
 
 COPY trapperkeeper.aug /opt/puppetlabs/puppet/share/augeas/lenses/trapperkeeper.aug
