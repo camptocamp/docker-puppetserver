@@ -13,7 +13,6 @@ ENV \
   PUPPETDB_VERSION=5.2.6-1${RELEASE} \
   RUBY_GPG_VERSION=0.3.2 \
   HIERA_EYAML_GPG_VERSION=0.5.0 \
-
   PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 RUN apt-get update \
