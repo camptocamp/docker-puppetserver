@@ -45,8 +45,8 @@ RUN \
   chgrp 0 -R /etc/puppetlabs/puppet/ssl && chmod -R 0771 /etc/puppetlabs/puppet/ssl && \
   chgrp 0 -R /etc/puppetlabs/puppetserver && \
   chgrp 0 -R /opt/puppetlabs/server/data && \
-  chgrp 0 -R /var/log/puppetlabs/puppetserver && chmod 0750 /var/log/puppetlabs/puppetserver && \
-  touch /var/log/puppetlabs/puppetserver/masterhttp.log && chgrp 0 /var/log/puppetlabs/puppetserver/masterhttp.log && chmod 0660 /var/log/puppetlabs/puppetserver/masterhttp.log && \
+  chgrp 0 -R /var/log/puppetlabs/puppetserver && chmod g=u -R /var/log/puppetlabs/puppetserver && \
+  touch /var/log/puppetlabs/puppetserver/masterhttp.log && chgrp 0 /var/log/puppetlabs/puppetserver/masterhttp.log && chmod g=u /var/log/puppetlabs/puppetserver/masterhttp.log && \
   mkdir -p /.puppetlabs/etc/puppet && chgrp 0 -R /.puppetlabs && chmod g=u -R /.puppetlabs
 
 RUN echo "confdir = /etc/puppetlabs/puppet" > /.puppetlabs/etc/puppet/puppet.conf
