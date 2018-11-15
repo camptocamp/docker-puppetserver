@@ -30,35 +30,31 @@ RUN apt-get update \
 	libreadline7 \
   && rm -rf /var/lib/apt/lists/*
 
-COPY trapperkeeper.aug /opt/puppetlabs/puppet/share/augeas/lenses/trapperkeeper.aug
-
-COPY auth.conf /etc/puppetlabs/puppetserver/conf.d/auth.conf
-
 RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-rdoc \
   && puppetserver gem install hiera-eyaml-gpg --version $HIERA_EYAML_GPG_VERSION --no-ri --no-rdoc
 
-RUN puppet config set strict_variables true --section master
-
-# Allow JAVA_ARGS tuning
-RUN sed -i -e 's@^JAVA_ARGS=\(.*\)$@JAVA_ARGS=\$\{JAVA_ARGS:-\1\}@' /etc/default/puppetserver
-
-VOLUME ["/etc/puppetlabs/code"]
-
 # Configure cert autosign
 COPY check_csr.rb /
-RUN puppet config set autosign /check_csr.rb --section master
 
 COPY puppetdb.conf /etc/puppetlabs/puppet/
 COPY hiera.yaml /etc/puppetlabs/puppet/
 
 # Allow running as arbitrary user
 RUN \
-  chgrp 0 -R /etc/puppetlabs/puppet/ssl && chmod 0771 /etc/puppetlabs/puppet/ssl && \
+  mkdir -p /etc/puppetlabs/puppet/ssl/ca && \
+  chgrp 0 -R /etc/puppetlabs/puppet/ssl && chmod -R 0771 /etc/puppetlabs/puppet/ssl && \
   chgrp 0 -R /etc/puppetlabs/puppetserver && \
   chgrp 0 -R /opt/puppetlabs/server/data && \
   chgrp 0 -R /var/log/puppetlabs/puppetserver && chmod 0750 /var/log/puppetlabs/puppetserver && \
   touch /var/log/puppetlabs/puppetserver/masterhttp.log && chgrp 0 /var/log/puppetlabs/puppetserver/masterhttp.log && chmod 0660 /var/log/puppetlabs/puppetserver/masterhttp.log && \
   mkdir -p /.puppetlabs/etc/puppet && chgrp 0 -R /.puppetlabs && chmod g=u -R /.puppetlabs
+
+RUN echo "confdir = /etc/puppetlabs/puppet" > /.puppetlabs/etc/puppet/puppet.conf
+RUN echo "ssldir = /etc/puppetlabs/puppet/ssl" >> /.puppetlabs/etc/puppet/puppet.conf
+
+VOLUME ["/etc/puppetlabs/puppet/code", "/etc/puppetlabs/puppet/ssl/ca"]
+
+USER puppet
 
 # Configure entrypoint
 COPY /docker-entrypoint.sh /
