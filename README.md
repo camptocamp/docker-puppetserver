@@ -16,9 +16,17 @@ You can set `JAVA_ARGS` using a Docker environment variables:
 docker run --rm -e JAVA_ARGS='-Xmx4G' camptocamp/puppetserver
 ```
 
-### MAX_ACTIVE_INSTANCES
 
-You can tune `max-active-instances` using the `MAX_ACTIVE_INSTANCES` environment variable.
+### Secrets
+
+This image expects the following secrets:
+
+  - ca_key.pem: the CA private key
+  - ca_cert.pem: the CA cert bundle
+  - ca_crl.pem: the CA CRL
+  - gpg.asc: the GPG key (for hiera-eyaml-gpg)
+  - autosign_psk: the PSK for autosign policy
+
 
 Linking auto configuration:
 ---------------------------
