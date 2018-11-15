@@ -1,5 +1,7 @@
 #!/bin/bash
 
+umask 0002
+
 DIR=/docker-entrypoint.d
 
 if [[ -d "$DIR" ]]
