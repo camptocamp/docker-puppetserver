@@ -52,7 +52,7 @@ RUN \
 RUN echo "confdir = /etc/puppetlabs/puppet" > /.puppetlabs/etc/puppet/puppet.conf
 RUN echo "ssldir = /etc/puppetlabs/puppet/ssl" >> /.puppetlabs/etc/puppet/puppet.conf
 
-VOLUME ["/etc/puppetlabs/puppet/code", "/etc/puppetlabs/puppet/ssl/ca"]
+VOLUME ["/etc/puppetlabs/code", "/etc/puppetlabs/puppet/ssl/ca"]
 
 USER puppet
 
