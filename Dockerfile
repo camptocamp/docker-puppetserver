@@ -54,7 +54,7 @@ RUN echo "ssldir = /etc/puppetlabs/puppet/ssl" >> /.puppetlabs/etc/puppet/puppet
 
 VOLUME ["/etc/puppetlabs/code", "/etc/puppetlabs/puppet/ssl/ca"]
 
-RUN usermod -aG 0 puppet
+RUN usermod -aG 0 -d / puppet
 USER puppet
 
 # Configure entrypoint
