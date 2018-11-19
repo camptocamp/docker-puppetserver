@@ -1,0 +1,50 @@
+version: "3.1"
+services:
+  puppet:
+    build: .
+    image: camptocamp/puppetserver:arbitrary_user
+    hostname: puppet.camptocamp.com
+    user: "123456780"
+    volumes:
+      - puppetcode:/etc/puppetlabs/code:ro
+      - puppetca:/etc/puppetlabs/puppet/ssl/ca:rw
+      - ./configmaps/csr_attributes.yaml:/etc/puppetlabs/puppet/csr_attributes.yaml:ro
+      - ./configmaps/puppet.conf:/etc/puppetlabs/puppet/puppet.conf:ro
+        #- ./configmaps/routes.yaml:/etc/puppetlabs/puppet/routes.yaml:ro
+      - ./configmaps/auth.conf:/etc/puppetlabs/puppetserver/conf.d/auth.conf:ro
+      - ./configmaps/ca.conf:/etc/puppetlabs/puppetserver/conf.d/ca.conf:ro
+      - ./configmaps/check_csr.rb:/check_csr.rb:ro
+    secrets:
+      - ca_key.pem
+      - ca_crt.pem
+      - ca_crl.pem
+      - gpg.asc
+      - autosign_psk
+
+  g10k:
+    image: camptocamp/g10k-webhook:latest
+    volumes:
+      - puppetcode:/etc/puppetlabs/code:rw
+      - ./netrc:/.netrc
+    environment:
+      HOOK_SECRET: "SeCr3t"
+    secrets:
+      - id_rsa
+
+secrets:
+  ca_key.pem:
+    file: secrets/ca_key.pem
+  ca_crt.pem:
+    file: secrets/ca_crt.pem
+  ca_crl.pem:
+    file: secrets/ca_crl.pem
+  gpg.asc:
+    file: secrets/gpg.asc
+  autosign_psk:
+    file: secrets/autosign_psk
+  id_rsa:
+    file: secrets/id_rsa
+
+volumes:
+  puppetca:
+  puppetcode:
