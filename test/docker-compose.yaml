@@ -25,7 +25,7 @@ services:
     image: camptocamp/g10k-webhook:latest
     volumes:
       - puppetcode:/etc/puppetlabs/code:rw
-      - ./netrc:/.netrc
+      - ./configmaps/netrc:/.netrc
     environment:
       HOOK_SECRET: "SeCr3t"
     secrets:
