@@ -9,17 +9,17 @@ ENV \
   LANGUAGE=en_US.UTF-8 \
   LC_ALL=en_US.UTF-8 \
   LANG=en_US.UTF-8 \
-  PUPPET_AGENT_VERSION=5.5.8-1${RELEASE} \
-  PUPPETSERVER_VERSION=5.3.5-1${RELEASE} \
-  PUPPETDB_VERSION=5.2.6-1${RELEASE} \
+  PUPPET_AGENT_VERSION=6.0.4-1${RELEASE} \
+  PUPPETSERVER_VERSION=6.0.2-1${RELEASE} \
+  PUPPETDB_VERSION=6.0.1-1${RELEASE} \
   RUBY_GPG_VERSION=0.3.2 \
   HIERA_EYAML_GPG_VERSION=0.5.0 \
   PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 RUN apt-get update \
   && apt-get install -y curl locales-all \
-  && curl -O http://apt.puppet.com/puppet5-release-${RELEASE}.deb \
-  && dpkg -i puppet5-release-${RELEASE}.deb \
+  && curl -O http://apt.puppet.com/puppet6-release-${RELEASE}.deb \
+  && dpkg -i puppet6-release-${RELEASE}.deb \
   && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update \
