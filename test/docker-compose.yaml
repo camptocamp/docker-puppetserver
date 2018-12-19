@@ -10,6 +10,7 @@ services:
       - puppetca:/etc/puppetlabs/puppet/ssl/ca:rw
       - ./configmaps/csr_attributes.yaml:/etc/puppetlabs/puppet/csr_attributes.yaml:ro
       - ./configmaps/puppet.conf:/etc/puppetlabs/puppet/puppet.conf:ro
+      - ./configmaps/puppetdb.conf:/etc/puppetlabs/puppet/puppetdb.conf:ro
         #- ./configmaps/routes.yaml:/etc/puppetlabs/puppet/routes.yaml:ro
       - ./configmaps/auth.conf:/etc/puppetlabs/puppetserver/conf.d/auth.conf:ro
       - ./configmaps/ca.conf:/etc/puppetlabs/puppetserver/conf.d/ca.conf:ro
