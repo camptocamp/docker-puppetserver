@@ -33,7 +33,6 @@ RUN apt-get update \
 RUN puppetserver gem install ruby_gpg --version $RUBY_GPG_VERSION --no-ri --no-rdoc \
   && puppetserver gem install hiera-eyaml-gpg --version $HIERA_EYAML_GPG_VERSION --no-ri --no-rdoc
 
-COPY puppetdb.conf /etc/puppetlabs/puppet/
 COPY hiera.yaml /etc/puppetlabs/puppet/
 
 # Allow running as arbitrary user
