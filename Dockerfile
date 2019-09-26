@@ -1,4 +1,4 @@
-FROM puppet/puppetserver:6.5.0
+FROM puppet/puppetserver:6.6.0
 
 ENV \
 	RUBY_GPG_VERSION=0.3.2 \
